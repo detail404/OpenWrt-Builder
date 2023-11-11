@@ -125,10 +125,12 @@ mv -f ../Lienol_MSTR/package/network/utils/fullconenat/                     ./pa
 
 ### 4. 软件包 ###
 # dae
-mv -f ../Immortalwrt_PKG/net/dae  ./feeds/packages/net/dae
-mv -f ../Immortalwrt_PKG/net/daed ./feeds/packages/net/daed
-ln -sf ../../../feeds/packages/net/dae  ./package/feeds/packages/dae
-ln -sf ../../../feeds/packages/net/daed ./package/feeds/packages/daed
+mv -f ../Immortalwrt_PKG/net/dae          ./feeds/packages/net/dae
+mv -f ../Immortalwrt_PKG/net/daed         ./feeds/packages/net/daed
+ln -sf ../../../feeds/packages/net/dae    ./package/feeds/packages/dae
+ln -sf ../../../feeds/packages/net/daed   ./package/feeds/packages/daed
+mv -f ../Luci_daednext/daed-next          ./package/new/daed-next
+mv -f ../Luci_daednext/luci-app-daed-next ./package/new/luci-app-daed-next
 git clone --single-branch -b master --depth 1 https://github.com/QiuSimons/luci-app-daed.git package/new/luci-app-daed
 # allow BTF mismatch
 wget -qO - https://github.com/immortalwrt/immortalwrt/commit/73e56799fe86dce851c6cf07a768e81597e204d9.patch | patch -p1
@@ -194,6 +196,7 @@ rm -rf ./feeds/packages/net/kcptun
 rm -rf ./feeds/packages/net/microsocks
 rm -rf ./feeds/packages/net/shadowsocks-libev
 rm -rf ./feeds/packages/net/trojan-go
+rm -rf ./feeds/packages/net/v2dat
 rm -rf ./feeds/packages/net/v2ray-core
 rm -rf ./feeds/packages/net/v2ray-geodata
 rm -rf ./feeds/packages/net/xray-core
@@ -215,6 +218,7 @@ mv -f ../Passwall_PKG/xray-plugin/                    ./package/new/xray-plugin/
 mv -f ../SSRP_SRC/dns2tcp/                            ./package/new/dns2tcp/
 mv -f ../SSRP_SRC/gn/                                 ./package/new/gn/
 mv -f ../SSRP_SRC/lua-neturl/                         ./package/new/lua-neturl/
+mv -f ../SSRP_SRC/mosdns/                             ./package/new/mosdns/
 mv -f ../SSRP_SRC/naiveproxy/                         ./package/new/naiveproxy/
 mv -f ../SSRP_SRC/redsocks2/                          ./package/new/redsocks2/
 mv -f ../SSRP_SRC/shadow-tls/                         ./package/new/shadow-tls/
@@ -223,6 +227,7 @@ mv -f ../SSRP_SRC/shadowsocksr-libev/                 ./package/new/shadowsocksr
 mv -f ../SSRP_SRC/simple-obfs/                        ./package/new/simple-obfs/
 mv -f ../SSRP_SRC/trojan/                             ./package/new/trojan/
 mv -f ../SSRP_SRC/tuic-client/                        ./package/new/tuic-client/
+mv -f ../SSRP_SRC/v2dat/                              ./feeds/packages/net/v2dat/
 mv -f ../SSRP_SRC/v2ray-core/                         ./feeds/packages/net/v2ray-core/
 mv -f ../SSRP_SRC/v2ray-geodata/                      ./feeds/packages/net/v2ray-geodata/
 mv -f ../SSRP_SRC/v2ray-plugin/                       ./package/new/v2ray-plugin/
@@ -231,6 +236,7 @@ ln -sf ../../../feeds/packages/net/kcptun             ./package/feeds/packages/k
 ln -sf ../../../feeds/packages/net/microsocks         ./package/feeds/packages/microsocks
 ln -sf ../../../feeds/packages/net/shadowsocks-libev  ./package/feeds/packages/shadowsocks-libev
 ln -sf ../../../feeds/packages/net/trojan-go          ./package/feeds/packages/trojan-go
+ln -sf ../../../feeds/packages/net/v2dat              ./package/feeds/packages/v2dat
 ln -sf ../../../feeds/packages/net/v2ray-core         ./package/feeds/packages/v2ray-core
 ln -sf ../../../feeds/packages/net/v2ray-geodata      ./package/feeds/packages/v2ray-geodata
 ln -sf ../../../feeds/packages/net/xray-core          ./package/feeds/packages/xray-core

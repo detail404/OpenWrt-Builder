@@ -50,8 +50,8 @@ done
 
 makefile_file=$({ find package | grep Makefile | sed '/Makefile./d'; } 2>/dev/null)
 for g in ${makefile_file}; do
-	grep -q 'golang-package.mk' "$g" 2>/dev/null && sed -i "s,\../..,\$(TOPDIR)/feeds/packages,g" "$g"
-	grep -q 'luci.mk' "$g" 2>/dev/null && sed -i "s,\../..,\$(TOPDIR)/feeds/luci,g" "$g"
+	grep -q 'golang-package.mk' "$g" 2>/dev/null && sed -i "s|\.\./\.\.|$\(TOPDIR\)/feeds/packages|g" "$g"
+	grep -q 'luci.mk' "$g" 2>/dev/null && sed -i "s|\.\./\.\.|$\(TOPDIR\)/feeds/luci|g" "$g"
 done
 
 exit 0

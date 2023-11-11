@@ -43,9 +43,13 @@ git clone -b master        --depth 1 https://github.com/openwrt/packages.git    
 sleep 3
 git clone -b main          --depth 1 https://github.com/jjm2473/openwrt-third.git      Jjm2473_PACKAGES/
 sleep 3
-git clone -b master        --depth 1 https://github.com/fw876/helloworld.git           SSRP_SRC/
+git clone -b main          --depth 1 https://github.com/fw876/helloworld.git           SSRP_SRC/
 sleep 3
 git clone -b main          --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git Passwall_PKG/
+sleep 3
+git clone -b main          --depth 1 https://github.com/sbwml/luci-app-daed-next.git     Sbw_daednext/
+sleep 3
+git clone -b rebase        --depth 1 https://github.com/QiuSimons/luci-app-daed-next.git Luci_daednext/
 
 unalias wget
 exit 0
