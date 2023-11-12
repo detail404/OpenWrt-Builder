@@ -21,7 +21,7 @@ mv -f ../PATCH/backport/TCP/* ./target/linux/generic/backport-5.15/
 # BBR v3
 mv -f ../PATCH/BBRv3/kernel/* ./target/linux/generic/backport-5.15/
 # LRNG
-mv -rf ../PATCH/LRNG/*        ./target/linux/generic/hack-5.15/
+mv -f ../PATCH/LRNG/*         ./target/linux/generic/hack-5.15/
 echo '
 # CONFIG_RANDOM_DEFAULT_IMPL is not set
 CONFIG_LRNG=y
