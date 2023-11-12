@@ -196,7 +196,6 @@ rm -rf ./feeds/packages/net/kcptun
 rm -rf ./feeds/packages/net/microsocks
 rm -rf ./feeds/packages/net/shadowsocks-libev
 rm -rf ./feeds/packages/net/trojan-go
-rm -rf ./feeds/packages/net/v2dat
 rm -rf ./feeds/packages/net/v2ray-core
 rm -rf ./feeds/packages/net/v2ray-geodata
 rm -rf ./feeds/packages/net/xray-core
@@ -227,7 +226,6 @@ mv -f ../SSRP_SRC/shadowsocksr-libev/                 ./package/new/shadowsocksr
 mv -f ../SSRP_SRC/simple-obfs/                        ./package/new/simple-obfs/
 mv -f ../SSRP_SRC/trojan/                             ./package/new/trojan/
 mv -f ../SSRP_SRC/tuic-client/                        ./package/new/tuic-client/
-mv -f ../SSRP_SRC/v2dat/                              ./feeds/packages/net/v2dat/
 mv -f ../SSRP_SRC/v2ray-core/                         ./feeds/packages/net/v2ray-core/
 mv -f ../SSRP_SRC/v2ray-geodata/                      ./feeds/packages/net/v2ray-geodata/
 mv -f ../SSRP_SRC/v2ray-plugin/                       ./package/new/v2ray-plugin/
@@ -236,7 +234,6 @@ ln -sf ../../../feeds/packages/net/kcptun             ./package/feeds/packages/k
 ln -sf ../../../feeds/packages/net/microsocks         ./package/feeds/packages/microsocks
 ln -sf ../../../feeds/packages/net/shadowsocks-libev  ./package/feeds/packages/shadowsocks-libev
 ln -sf ../../../feeds/packages/net/trojan-go          ./package/feeds/packages/trojan-go
-ln -sf ../../../feeds/packages/net/v2dat              ./package/feeds/packages/v2dat
 ln -sf ../../../feeds/packages/net/v2ray-core         ./package/feeds/packages/v2ray-core
 ln -sf ../../../feeds/packages/net/v2ray-geodata      ./package/feeds/packages/v2ray-geodata
 ln -sf ../../../feeds/packages/net/xray-core          ./package/feeds/packages/xray-core
