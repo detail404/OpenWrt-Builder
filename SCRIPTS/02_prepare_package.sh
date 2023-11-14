@@ -16,8 +16,6 @@ echo "net.netfilter.nf_conntrack_helper=1" >> package/kernel/linux/files/sysctl-
 mkdir -p package/new
 
 ### 2. 补丁 ###
-# TCP optimizations
-mv -f ../PATCH/backport/TCP/* ./target/linux/generic/backport-5.15/
 # BBR v3
 mv -f ../PATCH/BBRv3/kernel/* ./target/linux/generic/backport-5.15/
 # mbedTLS
@@ -38,9 +36,9 @@ sed -i '/patchelf pkgconf/i\tools-y += ucl upx'                                 
 sed -i '\/autoconf\/compile :=/i\$(curdir)/upx/compile := $(curdir)/ucl/compile' ./tools/Makefile
 mv -f ../Lienol_MSTR/tools/ucl/ ./tools/ucl/
 mv -f ../Lienol_MSTR/tools/upx/ ./tools/upx/
-# 更换 golang 版本
-#rm -rf ./feeds/packages/lang/golang
-#mv -f ../Openwrt_PACKAGES_MSTR/lang/golang/ ./feeds/packages/lang/golang/
+# Node.js 使用预编译二进制
+rm -rf ./feeds/packages/lang/node
+git clone --depth 1 https://github.com/sbwml/feeds_packages_lang_node-prebuilt.git feeds/packages/lang/node
 # nftables 额外规则
 mkdir -p                               files/usr/share/nftables.d/chain-pre/forward
 mv ../PATCH/nftables_conf/10-ios.nft ./files/usr/share/nftables.d/chain-pre/forward/
