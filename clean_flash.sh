@@ -96,7 +96,7 @@ for i in $(seq ${mytimeout} -1 1) ; do
     sleep 1
 done
 echo -ne "\r\t\033[31m0秒\033[00m后将开始刷机...\t"
-echo -ne "\r                                 "
+echo -ne "\r                                    \n"
 color_echo green '已启动刷机流程...\n请不要操作键盘等输入设备，并保持电源接通。'
 
 cp -f "$(which busybox)" ./
