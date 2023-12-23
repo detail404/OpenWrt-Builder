@@ -1,12 +1,6 @@
 name: OpenWrt for R2S self-hosted
 
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'CHANGELOG.md'
-      - '.github/workflows/R2S-selfhosted.yml'
+on: workflow_dispatch
 
 env:
   UPLOAD_FIRMWARE: true
