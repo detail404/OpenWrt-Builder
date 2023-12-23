@@ -186,7 +186,7 @@ mv -f ../Coolsnowwolf_MSTR/package/lean/ipv6-helper/ ./package/new/ipv6-helper/
 patch -p1 < ../PATCH/odhcp6c/1002-odhcp6c-support-dhcpv6-hotplug.patch
 # odhcpd IPv6
 mkdir -p package/network/services/odhcpd/patches
-mv -f ../PATCH/odhcpd/0001-config-allow-configuring-max-limit-for-preferred-and.patch ./package/network/services/odhcpd/patches/
+mv -f ../PATCH/odhcpd/0001-odhcpd-improve-RFC-9096-compliance.patch ./package/network/services/odhcpd/patches/
 mkdir -p                          files/etc/hotplug.d/iface
 mv -f ../PATCH/odhcpd/99-odhcpd ./files/etc/hotplug.d/iface/
 # OpenClash
