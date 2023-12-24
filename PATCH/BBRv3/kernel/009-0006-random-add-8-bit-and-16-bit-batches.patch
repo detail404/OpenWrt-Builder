@@ -37,8 +37,8 @@ index a9e6e16f977419..2c130f8f18e538 100644
  
  void get_random_bytes(void *buf, size_t len);
  size_t __must_check get_random_bytes_arch(void *buf, size_t len);
-+static u8 get_random_u8(void);
-+static u16 get_random_u16(void);
++u8 get_random_u8(void);
++u16 get_random_u16(void);
  u32 get_random_u32(void);
  u64 get_random_u64(void);
  static inline unsigned int get_random_int(void)
