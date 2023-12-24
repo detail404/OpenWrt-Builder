@@ -13,7 +13,8 @@ then possible to start submitting conversion patches leisurely.
 Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
 ---
  drivers/char/random.c  | 2 ++
- 1 files changed, 2 insertions(+)
+ include/linux/random.h | 2 ++
+ 2 files changed, 4 insertions(+)
 
 diff --git a/drivers/char/random.c b/drivers/char/random.c
 index f2aa3ab1b458a9..64ee16ffb8b76b 100644
@@ -28,3 +29,16 @@ index f2aa3ab1b458a9..64ee16ffb8b76b 100644
  
  #ifdef CONFIG_SMP
  /*
+diff --git a/include/linux/random.h b/include/linux/random.h
+index a9e6e16f977419..2c130f8f18e538 100644
+--- a/include/linux/random.h
++++ b/include/linux/random.h
+@@ -38,6 +38,8 @@ static inline int unregister_random_vmfork_notifier(struct notifier_block *nb) {
+ 
+ void get_random_bytes(void *buf, size_t len);
+ size_t __must_check get_random_bytes_arch(void *buf, size_t len);
++u8 get_random_u8(void);
++u16 get_random_u16(void);
+ u32 get_random_u32(void);
+ u64 get_random_u64(void);
+ static inline unsigned int get_random_int(void)
