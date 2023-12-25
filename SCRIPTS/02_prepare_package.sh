@@ -18,16 +18,16 @@ mkdir -p package/new
 ### 2. 补丁 ###
 # BBR v3
 mv -f ../PATCH/BBRv3/kernel/* ./target/linux/generic/backport-5.15/
-# LRNG
-mv -f ../PATCH/LRNG/*         ./target/linux/generic/hack-5.15/
-echo '
-# CONFIG_RANDOM_DEFAULT_IMPL is not set
-CONFIG_LRNG=y
-# CONFIG_LRNG_IRQ is not set
-CONFIG_LRNG_JENT=y
-CONFIG_LRNG_CPU=y
-# CONFIG_LRNG_SCHED is not set
-' >> ./target/linux/generic/config-5.15
+# # LRNG
+# mv -f ../PATCH/LRNG/*         ./target/linux/generic/hack-5.15/
+# echo '
+# # CONFIG_RANDOM_DEFAULT_IMPL is not set
+# CONFIG_LRNG=y
+# # CONFIG_LRNG_IRQ is not set
+# CONFIG_LRNG_JENT=y
+# CONFIG_LRNG_CPU=y
+# # CONFIG_LRNG_SCHED is not set
+# ' >> ./target/linux/generic/config-5.15
 # mbedTLS
 rm -rf ./package/libs/mbedtls
 mv ../Immortalwrt_2305/package/libs/mbedtls/ ./package/libs/mbedtls/
