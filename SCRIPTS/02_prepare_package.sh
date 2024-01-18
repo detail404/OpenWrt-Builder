@@ -333,6 +333,14 @@ rm -rf .config
 # 停用内核配置“将所有警告视为错误”，这是因为一些第三方PATCH不够严谨
 sed -i 's,CONFIG_WERROR=y,# CONFIG_WERROR is not set,g' ./target/linux/generic/config-5.15
 
+# 其他修补
+if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
+  wget -qO - https://github.com/immortalwrt/immortalwrt/commit/4e7e1e851ff3c9b9af9dda83d4a7baea83c8ebdf.patch | patch -Rp1
+fi
+pushd feeds/luci
+  wget -qO - https://github.com/openwrt/luci/commit/39e6514cee3ba60b0876ca00197d53a65ddc809a.patch | patch -p1
+popd
+
 ### 6. vermagic ###
 source ../OPENWRT_GIT_TAG
 LATESTRELEASE=${LATESTRELEASE:1}
