@@ -46,6 +46,9 @@ sed -i '/patchelf pkgconf/i\tools-y += ucl upx'                                 
 sed -i '\/autoconf\/compile :=/i\$(curdir)/upx/compile := $(curdir)/ucl/compile' ./tools/Makefile
 mv -f ../Lienol_MSTR/tools/ucl/ ./tools/ucl/
 mv -f ../Lienol_MSTR/tools/upx/ ./tools/upx/
+# 更换 golang 版本
+rm -rf ./feeds/packages/lang/golang
+mv ../Openwrt_PKG_MSTR/lang/golang/ ./feeds/packages/lang/golang/
 # Node.js 使用预编译二进制
 rm -rf ./feeds/packages/lang/node
 git clone --depth 1 https://github.com/sbwml/feeds_packages_lang_node-prebuilt.git feeds/packages/lang/node
