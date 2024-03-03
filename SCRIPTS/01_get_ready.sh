@@ -45,6 +45,8 @@ git clone -b main          --depth 1 https://github.com/jjm2473/openwrt-third.gi
 sleep 3
 git clone -b main          --depth 1 https://github.com/fw876/helloworld.git           SSRP_SRC/
 sleep 3
+git clone -b v5            --depth 1 https://github.com/sbwml/openwrt_helloworld.git   Sbwml_SSRP_SRC/
+sleep 3
 git clone -b main          --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git Passwall_PKG/
 sleep 3
 git clone -b main          --depth 1 https://github.com/sbwml/luci-app-daed-next.git     Sbw_daednext/

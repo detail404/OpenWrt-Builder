@@ -193,12 +193,9 @@ mv -f ../PATCH/odhcpd/99-zzz-odhcpd ./files/etc/hotplug.d/iface/
 # OpenClash
 git clone --single-branch -b master --depth 1 https://github.com/vernesong/OpenClash.git package/new/luci-app-openclash
 # SSRP
-mv -f ../SSRP_SRC/luci-app-ssr-plus/ ./package/new/luci-app-ssr-plus/
-pushd package/new
-  if grep -qF 'firewall.shadowsocksr_server' luci-app-ssr-plus/root/etc/init.d/shadowsocksr 2>/dev/null; then
-    wget -qO - https://github.com/fw876/helloworld/pull/1249.patch | patch -p1
-  fi
-  patch -p1 < ../../../PATCH/SSRP/0001-add-QiuSimons-Chnroute-to-chnroute-url.patch
+mv -f ../Sbwml_SSRP_SRC/luci-app-ssr-plus/ ./package/new/luci-app-ssr-plus/
+pushd package/new/luci-app-ssr-plus
+  sed -i '/Clang.CN.CIDR/a\o:value("https://fastly.jsdelivr.net/gh/QiuSimons/Chnroute@master/dist/chnroute/chnroute.txt", translate("QiuSimons/Chnroute"))' luasrc/model/cbi/shadowsocksr/advanced.lua
 popd
 # SSRP 依赖
 rm -rf ./feeds/packages/net/kcptun
@@ -206,7 +203,6 @@ rm -rf ./feeds/packages/net/microsocks
 rm -rf ./feeds/packages/net/shadowsocks-libev
 rm -rf ./feeds/packages/net/trojan-go
 rm -rf ./feeds/packages/net/v2ray-core
-rm -rf ./feeds/packages/net/v2ray-geodata
 rm -rf ./feeds/packages/net/xray-core
 mv -f ../Coolsnowwolf_PKG/net/shadowsocks-libev/      ./feeds/packages/net/shadowsocks-libev/
 mv -f ../Immortalwrt_PKG/net/kcptun/                  ./feeds/packages/net/kcptun/
@@ -236,7 +232,6 @@ mv -f ../SSRP_SRC/simple-obfs/                        ./package/new/simple-obfs/
 mv -f ../SSRP_SRC/trojan/                             ./package/new/trojan/
 mv -f ../SSRP_SRC/tuic-client/                        ./package/new/tuic-client/
 mv -f ../SSRP_SRC/v2ray-core/                         ./feeds/packages/net/v2ray-core/
-mv -f ../SSRP_SRC/v2ray-geodata/                      ./feeds/packages/net/v2ray-geodata/
 mv -f ../SSRP_SRC/v2ray-plugin/                       ./package/new/v2ray-plugin/
 sed -i '/CURDIR/d' ./feeds/packages/net/xray-core/Makefile
 ln -sf ../../../feeds/packages/net/kcptun             ./package/feeds/packages/kcptun
@@ -244,7 +239,6 @@ ln -sf ../../../feeds/packages/net/microsocks         ./package/feeds/packages/m
 ln -sf ../../../feeds/packages/net/shadowsocks-libev  ./package/feeds/packages/shadowsocks-libev
 ln -sf ../../../feeds/packages/net/trojan-go          ./package/feeds/packages/trojan-go
 ln -sf ../../../feeds/packages/net/v2ray-core         ./package/feeds/packages/v2ray-core
-ln -sf ../../../feeds/packages/net/v2ray-geodata      ./package/feeds/packages/v2ray-geodata
 ln -sf ../../../feeds/packages/net/xray-core          ./package/feeds/packages/xray-core
 # homeproxy
 git clone --single-branch -b master --depth 1 https://github.com/immortalwrt/homeproxy.git package/new/homeproxy
