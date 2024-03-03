@@ -49,9 +49,6 @@ mv -f ../Lienol_MSTR/tools/upx/ ./tools/upx/
 # Node.js 使用预编译二进制
 rm -rf ./feeds/packages/lang/node
 git clone --depth 1 https://github.com/sbwml/feeds_packages_lang_node-prebuilt.git feeds/packages/lang/node
-# nftables 额外规则
-mkdir -p                               files/usr/share/nftables.d/chain-pre/forward
-mv ../PATCH/nftables_conf/10-ios.nft ./files/usr/share/nftables.d/chain-pre/forward/
 # hotplug 配置
 mkdir -p                                                 files/etc/hotplug.d/net
 mv ../PATCH/hotplug_conf/01-maximize_nic_rx_tx_buffers ./files/etc/hotplug.d/net/
@@ -110,11 +107,15 @@ mv -f ../Coolsnowwolf_MSTR/target/linux/generic/hack-5.15/982-add-bcm-fullconena
 # FW4
 mkdir -p package/network/config/firewall4/patches package/network/utils/nftables/patches package/libs/libnftnl/patches
 mv -f ../PATCH/firewall/001-fix-fw4-flow-offload.patch                              ./package/network/config/firewall4/patches/
+mv -f ../PATCH/firewall/002-fw4-udp53_and_apns.patch                                ./package/network/config/firewall4/patches/
 mv -f ../PATCH/firewall/990-unconditionally-allow-ct-status-dnat.patch              ./package/network/config/firewall4/patches/
 mv -f ../PATCH/firewall/999-01-firewall4-add-fullcone-support.patch                 ./package/network/config/firewall4/patches/
 mv -f ../PATCH/firewall/nftables/002-nftables-add-fullcone-expression-support.patch ./package/network/utils/nftables/patches/
 mv -f ../PATCH/firewall/libnftnl/001-libnftnl-add-fullcone-expression-support.patch ./package/libs/libnftnl/patches/
 sed -i '/PKG_INSTALL:=/iPKG_FIXUP:=autoreconf'                                      ./package/libs/libnftnl/Makefile
+# nftables 额外规则，和上面的002-fw4-udp53_and_apns.patch配合
+mkdir -p                                     files/etc
+mv ../PATCH/nftables_rules/custom_nft.rule ./files/etc/
 # FW3
 mkdir -p package/network/config/firewall/patches
 wget -P ./package/network/config/firewall/patches/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/package/network/config/firewall/patches/100-fullconenat.patch
