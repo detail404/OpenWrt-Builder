@@ -17,9 +17,9 @@ mkdir -p package/new
 
 ### 2. 补丁 ###
 # BBR v3
-mv -f ../PATCH/BBRv3/kernel/* ./target/linux/generic/backport-5.15/
+mv -f ../PATCH/BBRv3/kernel/*.patch ./target/linux/generic/backport-5.15/
 # # LRNG
-# mv -f ../PATCH/LRNG/*         ./target/linux/generic/hack-5.15/
+# mv -f ../PATCH/LRNG/*.patch       ./target/linux/generic/hack-5.15/
 # echo '
 # # CONFIG_RANDOM_DEFAULT_IMPL is not set
 # CONFIG_LRNG=y
@@ -55,6 +55,8 @@ git clone --depth 1 https://github.com/sbwml/feeds_packages_lang_node-prebuilt.g
 # hotplug 配置
 mkdir -p                                                 files/etc/hotplug.d/net
 mv ../PATCH/hotplug_conf/01-maximize_nic_rx_tx_buffers ./files/etc/hotplug.d/net/
+# TCP optimizations
+mv -f ../PATCH/backport/TCP/*.patch ./target/linux/generic/backport-5.15/
 # 根据体系调整
 case ${MYOPENWRTTARGET} in
   R2S)
@@ -70,14 +72,14 @@ case ${MYOPENWRTTARGET} in
     cp -r ../Immortalwrt_2305/package/boot/arm-trusted-firmware-rockchip/ ./package/boot/arm-trusted-firmware-rockchip/
     cp -r ../Immortalwrt_2305/package/boot/uboot-rockchip/                ./package/boot/uboot-rockchip/
     mv -f ../Immortalwrt_2305/target/linux/rockchip/                      ./target/linux/rockchip/
-    mv -f ../PATCH/rockchip-5.15/*                                        ./target/linux/rockchip/patches-5.15/
+    mv -f ../PATCH/rockchip-5.15/*.patch                                  ./target/linux/rockchip/patches-5.15/
     sed -i '/REQUIRE_IMAGE_METADATA/d' target/linux/rockchip/armv8/base-files/lib/upgrade/platform.sh
     ;;
   x86)
     # 平台优化，不再考虑过于老旧的平台
     sed -i 's/-Os/-O2 -march=x86-64-v2/g' ./include/target.mk
     # x86 csum
-    mv -f ../PATCH/backport/x86_csum/* ./target/linux/generic/backport-5.15/
+    mv -f ../PATCH/backport/x86_csum/*.patch ./target/linux/generic/backport-5.15/
     # Enable SMP
 echo '
 CONFIG_X86_INTEL_PSTATE=y
