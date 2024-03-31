@@ -331,11 +331,6 @@ rm -rf .config
 # 停用内核配置“将所有警告视为错误”，这是因为一些第三方PATCH不够严谨
 sed -i 's,CONFIG_WERROR=y,# CONFIG_WERROR is not set,g' ./target/linux/generic/config-5.15
 
-# 其他修补
-if [ "${MYOPENWRTTARGET}" == 'R2S' ] ; then
-  wget -qO - https://github.com/immortalwrt/immortalwrt/commit/4e7e1e851ff3c9b9af9dda83d4a7baea83c8ebdf.patch | patch -Rp1
-fi
-
 ### 6. vermagic ###
 source ../OPENWRT_GIT_TAG
 LATESTRELEASE=${LATESTRELEASE:1}
