@@ -18,6 +18,7 @@ uci commit uhttpd
 /etc/init.d/uhttpd restart
 # enable Fullcone NAT
 uci set firewall.@defaults[0].fullcone='1'
+uci set firewall.@defaults[0].brcmfullcone='1'
 uci set firewall.@defaults[0].flow_offloading='0'
 uci commit firewall
 # dropbear
