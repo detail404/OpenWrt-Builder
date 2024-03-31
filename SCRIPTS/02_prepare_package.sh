@@ -106,16 +106,17 @@ esac
 ### 3. Fullcone-NAT 部分 ###
 # Patch Kernel 以解决 FullCone 冲突
 mv -f ../Coolsnowwolf_MSTR/target/linux/generic/hack-5.15/952-add-net-conntrack-events-support-multiple-registrant.patch ./target/linux/generic/hack-5.15/
-mv -f ../Coolsnowwolf_MSTR/target/linux/generic/hack-5.15/982-add-bcm-fullconenat-support.patch                          ./target/linux/generic/hack-5.15/
+# BCM FullCone
+mv -f ../PATCH/bcmfullcone/*.patch ./target/linux/generic/hack-5.15/
 # Patch FireWall 以增添 FullCone 功能
 # FW4
-mkdir -p package/network/config/firewall4/patches package/network/utils/nftables/patches package/libs/libnftnl/patches
-mv -f ../PATCH/firewall/001-fix-fw4-flow-offload.patch                              ./package/network/config/firewall4/patches/
-mv -f ../PATCH/firewall/990-unconditionally-allow-ct-status-dnat.patch              ./package/network/config/firewall4/patches/
-mv -f ../PATCH/firewall/999-01-firewall4-add-fullcone-support.patch                 ./package/network/config/firewall4/patches/
-mv -f ../PATCH/firewall/nftables/002-nftables-add-fullcone-expression-support.patch ./package/network/utils/nftables/patches/
-mv -f ../PATCH/firewall/libnftnl/001-libnftnl-add-fullcone-expression-support.patch ./package/libs/libnftnl/patches/
+mkdir -p package/network/config/firewall4/patches package/libs/libnftnl/patches package/network/utils/nftables/patches
+mv -f ../PATCH/firewall/firewall4_patches/*.patch ./package/network/config/firewall4/patches/
+mv -f ../PATCH/firewall/libnftnl/*.patch ./package/libs/libnftnl/patches/
+cp -f ../PATCH/firewall/nftables/*.patch ./package/network/utils/nftables/patches/
 sed -i '/PKG_INSTALL:=/iPKG_FIXUP:=autoreconf'                                      ./package/libs/libnftnl/Makefile
+# custom nft command
+patch -p1 < ../PATCH/firewall/100-openwrt-firewall4-add-custom-nft-command-support.patch
 # FW3
 mkdir -p package/network/config/firewall/patches
 wget -P ./package/network/config/firewall/patches/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/package/network/config/firewall/patches/100-fullconenat.patch
@@ -124,9 +125,11 @@ mv -f ../Coolsnowwolf_MSTR/package/network/config/firewall/patches/101-bcm-fullc
 mv -f ../Coolsnowwolf_MSTR/package/network/utils/iptables/patches/900-bcm-fullconenat.patch ./package/network/utils/iptables/patches/900-bcm-fullconenat.patch
 # network
 wget -qO - https://github.com/openwrt/openwrt/commit/bbf39d07fd43977f55a4b9ba9e384cdf8a0d2b50.patch | patch -p1
-# Patch LuCI 以增添 FullCone 开关
 pushd feeds/luci
-  patch -p1 < ../../../PATCH/firewall/luci-app-firewall_add_fullcone_fw4.patch
+  # Patch LuCI 以增添 FullCone 开关
+  patch -p1 < ../../../PATCH/firewall/01-luci-app-firewall_add_nft-fullcone-bcm-fullcone_option.patch
+  # Patch LuCI 以支持自定义 nft 规则
+  patch -p1 < ../../../PATCH/firewall/04-luci-add-firewall4-nft-rules-file.patch
 popd
 # FullCone package
 git clone --depth 1 https://github.com/fullcone-nat-nftables/nft-fullcone.git package/new/nft-fullcone
