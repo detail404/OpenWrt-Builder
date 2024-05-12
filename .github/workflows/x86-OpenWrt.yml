@@ -22,18 +22,6 @@ jobs:
         [ -f /proc/version ] && cat /proc/version
         [ -f /etc/issue.net ] && cat /etc/issue.net
 
-    - name: Maximize build space
-      uses: easimon/maximize-build-space@master
-      with:
-        root-reserve-mb: 4095
-        temp-reserve-mb: 1023
-        swap-size-mb: 511
-        remove-dotnet: 'true'
-        remove-android: 'true'
-        remove-haskell: 'true'
-        remove-codeql: 'true'
-        remove-docker-images: 'true'
-
     - name: Free disk space
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -46,11 +34,6 @@ jobs:
         sudo -E rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /etc/mysql /etc/php
         df -h
 
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        ref: 'master'
-
     - name: Init build dependencies
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -62,6 +45,23 @@ jobs:
         pip3 install --user -U pylibfdt
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -h
+
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+        root-reserve-mb: 4095
+        temp-reserve-mb: 1023
+        swap-size-mb: 511
+        remove-dotnet: 'true'
+        remove-android: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        ref: 'master'
 
     - name: Prepare OpenWrt
       run: |
