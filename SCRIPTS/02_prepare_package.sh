@@ -57,10 +57,10 @@ mkdir -p                                                 files/etc/hotplug.d/net
 mv ../PATCH/hotplug_conf/01-maximize_nic_rx_tx_buffers ./files/etc/hotplug.d/net/
 # TCP optimizations
 mv -f ../PATCH/backport/TCP/*.patch ./target/linux/generic/backport-5.15/
-# PPPOE offload fix
-wget -P ./target/linux/generic/backport-5.15/ 'https://raw.githubusercontent.com/openwrt/openwrt/98834a4c3f81c6e4f20329ff266f9bd85731d114/target/linux/generic/backport-5.15/741-v6.9-01-netfilter-flowtable-validate-pppoe-header.patch'
-wget -P ./target/linux/generic/backport-5.15/ 'https://raw.githubusercontent.com/openwrt/openwrt/98834a4c3f81c6e4f20329ff266f9bd85731d114/target/linux/generic/backport-5.15/741-v6.9-02-netfilter-flowtable-incorrect-pppoe-tuple.patch'
-wget -P ./target/linux/generic/hack-5.15/ 'https://raw.githubusercontent.com/openwrt/openwrt/main/target/linux/generic/hack-5.15/650-netfilter-add-xt_FLOWOFFLOAD-target.patch'
+## PPPOE offload fix
+#wget -P ./target/linux/generic/backport-5.15/ 'https://raw.githubusercontent.com/openwrt/openwrt/98834a4c3f81c6e4f20329ff266f9bd85731d114/target/linux/generic/backport-5.15/741-v6.9-01-netfilter-flowtable-validate-pppoe-header.patch'
+#wget -P ./target/linux/generic/backport-5.15/ 'https://raw.githubusercontent.com/openwrt/openwrt/98834a4c3f81c6e4f20329ff266f9bd85731d114/target/linux/generic/backport-5.15/741-v6.9-02-netfilter-flowtable-incorrect-pppoe-tuple.patch'
+#wget -P ./target/linux/generic/hack-5.15/ 'https://raw.githubusercontent.com/openwrt/openwrt/main/target/linux/generic/hack-5.15/650-netfilter-add-xt_FLOWOFFLOAD-target.patch'
 # 根据体系调整
 case ${MYOPENWRTTARGET} in
   R2S)
