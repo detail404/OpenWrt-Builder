@@ -28,9 +28,6 @@ mv -f ../PATCH/BBRv3/kernel/*.patch ./target/linux/generic/backport-5.15/
 # CONFIG_LRNG_CPU=y
 # # CONFIG_LRNG_SCHED is not set
 # ' >> ./target/linux/generic/config-5.15
-# mbedTLS
-rm -rf ./package/libs/mbedtls
-mv ../Immortalwrt_2305/package/libs/mbedtls/ ./package/libs/mbedtls/
 # fstool patch
 wget -qO - https://github.com/coolsnowwolf/lede/commit/8a4db762497b79cac91df5e777089448a2a71f7c.patch | patch -p1
 # R8152 网卡驱动
@@ -55,12 +52,15 @@ git clone --depth 1 https://github.com/sbwml/feeds_packages_lang_node-prebuilt.g
 # hotplug 配置
 mkdir -p                                                 files/etc/hotplug.d/net
 mv ../PATCH/hotplug_conf/01-maximize_nic_rx_tx_buffers ./files/etc/hotplug.d/net/
+# 更换 FW4 为 master 分支版本
+rm -rf ./package/network/config/firewall4
+mv -f ../Openwrt_Main/package/network/config/firewall4/ ./package/network/config/firewall4/
 # TCP optimizations
 mv -f ../PATCH/backport/TCP/*.patch ./target/linux/generic/backport-5.15/
 ## PPPOE offload fix
-#wget -P ./target/linux/generic/backport-5.15/ 'https://raw.githubusercontent.com/openwrt/openwrt/98834a4c3f81c6e4f20329ff266f9bd85731d114/target/linux/generic/backport-5.15/741-v6.9-01-netfilter-flowtable-validate-pppoe-header.patch'
-#wget -P ./target/linux/generic/backport-5.15/ 'https://raw.githubusercontent.com/openwrt/openwrt/98834a4c3f81c6e4f20329ff266f9bd85731d114/target/linux/generic/backport-5.15/741-v6.9-02-netfilter-flowtable-incorrect-pppoe-tuple.patch'
-#wget -P ./target/linux/generic/hack-5.15/ 'https://raw.githubusercontent.com/openwrt/openwrt/main/target/linux/generic/hack-5.15/650-netfilter-add-xt_FLOWOFFLOAD-target.patch'
+#wget -P ./target/linux/generic/backport-5.15/ 'https://github.com/openwrt/openwrt/raw/98834a4c3f81c6e4f20329ff266f9bd85731d114/target/linux/generic/backport-5.15/741-v6.9-01-netfilter-flowtable-validate-pppoe-header.patch'
+#wget -P ./target/linux/generic/backport-5.15/ 'https://github.com/openwrt/openwrt/raw/98834a4c3f81c6e4f20329ff266f9bd85731d114/target/linux/generic/backport-5.15/741-v6.9-02-netfilter-flowtable-incorrect-pppoe-tuple.patch'
+#wget -P ./target/linux/generic/hack-5.15/ 'https://github.com/openwrt/openwrt/raw/98834a4c3f81c6e4f20329ff266f9bd85731d114/target/linux/generic/hack-5.15/650-netfilter-add-xt_FLOWOFFLOAD-target.patch'
 # 根据体系调整
 case ${MYOPENWRTTARGET} in
   R2S)
@@ -143,10 +143,9 @@ mv -f ../Lienol_MSTR/package/network/utils/fullconenat/                     ./pa
 
 ### 4. 软件包 ###
 # dae
+rm -rf ./feeds/packages/net/daed
 mv -f ../Immortalwrt_PKG/net/dae          ./feeds/packages/net/dae
-mv -f ../Immortalwrt_PKG/net/daed         ./feeds/packages/net/daed
 ln -sf ../../../feeds/packages/net/dae    ./package/feeds/packages/dae
-ln -sf ../../../feeds/packages/net/daed   ./package/feeds/packages/daed
 mv -f ../Luci_daednext/daed-next          ./package/new/daed-next
 mv -f ../Luci_daednext/luci-app-daed-next ./package/new/luci-app-daed-next
 git clone --single-branch -b master --depth 1 https://github.com/QiuSimons/luci-app-daed.git package/new/luci-app-daed

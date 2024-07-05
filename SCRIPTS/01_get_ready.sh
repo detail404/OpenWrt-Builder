@@ -23,6 +23,8 @@ pushd openwrt
 popd
 
 # 获取额外代码
+git clone -b main          --depth 1 https://github.com/openwrt/openwrt.git            Openwrt_Main/
+sleep 3
 git clone -b openwrt-23.05 --depth 1 https://github.com/immortalwrt/immortalwrt.git    Immortalwrt_2305/
 sleep 3
 git clone -b master        --depth 1 https://github.com/immortalwrt/packages.git       Immortalwrt_PKG/
