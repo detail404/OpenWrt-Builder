@@ -9,7 +9,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -71,69 +71,74 @@ jobs:
         /bin/bash ./01_get_ready.sh
 
     - name: Prepare Package
+      working-directory: ${{ github.workspace }}/openwrt
       run: |
-        cp -f ./SCRIPTS/*.sh ./openwrt/
-        cd openwrt
+        cp -f ../SCRIPTS/*.sh ./
         /bin/bash ./02_prepare_package.sh
 
     - name: Remove Upx
+      working-directory: ${{ github.workspace }}/openwrt
       run: |
-        cd openwrt
         /bin/bash ./03_remove_upx.sh
 
     - name: Convert Translation
+      working-directory: ${{ github.workspace }}/openwrt
       run: |
-        cd openwrt
         /bin/bash ./04_convert_translation.sh
 
     - name: Add ACL
+      working-directory: ${{ github.workspace }}/openwrt
       run: |
-        cd openwrt
         /bin/bash ./05_create_acl_for_luci.sh -a
 
     - name: Make Config
+      working-directory: ${{ github.workspace }}/openwrt
       run: |
-        cd openwrt
         cp -f ../SEED/x86.config.seed .config
         cat   ../SEED/more.seed    >> .config
         make defconfig
 
     - name: Make Download
+      working-directory: ${{ github.workspace }}/openwrt
       run: |
         df -h
-        cd openwrt && make download -j$(($(nproc) * 8))
+        make download -j$(($(nproc) * 8))
         echo $?
 
     - name: Make Toolchain
       id: maketoolchain
       continue-on-error: true
+      working-directory: ${{ github.workspace }}/openwrt
       run: |
         df -h
-        cd openwrt && make toolchain/install -j$(($(nproc) + 1))
+        make toolchain/install -j$(($(nproc) + 1))
         echo $?
         /bin/ls -AF staging_dir/toolchain-*/bin/
 
     - name: If Toolchain Error
       if: steps.maketoolchain.outcome == 'failure'
+      working-directory: ${{ github.workspace }}/openwrt
       run: |
         df -h
-        cd openwrt && make toolchain/install -j1 V=s
+        make toolchain/install -j1 V=s
 
     - name: Compile OpenWrt
       id: compileopenwrt
       continue-on-error: true
+      working-directory: ${{ github.workspace }}/openwrt
       run: |
         df -h
-        cd openwrt && make -j$(($(nproc) + 1)) V=w
+        make -j$(($(nproc) + 1)) V=w
         echo $?
 
     - name: If Compiling Error
       if: steps.compileopenwrt.outcome == 'failure'
+      working-directory: ${{ github.workspace }}/openwrt
       run: |
         df -h
-        cat openwrt/.config
+        cat .config
         echo '================================================================'
-        cd openwrt && make -j1 V=s
+        make -j1 V=s
 
     - name: Cleaning and hashing
       run: |
