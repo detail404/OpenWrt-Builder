@@ -138,16 +138,16 @@ git clone --depth 1 https://github.com/fullcone-nat-nftables/nft-fullcone.git pa
 mv -f ../Lienol_MSTR/package/network/utils/fullconenat/                     ./package/new/fullconenat/
 
 ### 4. 软件包 ###
-# dae
-rm -rf ./feeds/packages/net/daed
-mv -f ../Immortalwrt_PKG/net/dae          ./feeds/packages/net/dae
-ln -sf ../../../feeds/packages/net/dae    ./package/feeds/packages/dae
-mv -f ../Luci_daednext/daed-next          ./package/new/daed-next
-mv -f ../Luci_daednext/luci-app-daed-next ./package/new/luci-app-daed-next
-git clone --single-branch -b master --depth 1 https://github.com/QiuSimons/luci-app-daed.git package/new/luci-app-daed
-# allow BTF mismatch
-wget -qO - https://github.com/immortalwrt/immortalwrt/commit/73e56799fe86dce851c6cf07a768e81597e204d9.patch | patch -p1
-wget -P ./target/linux/generic/backport-5.15/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-23.05/target/linux/generic/backport-5.15/051-v5.18-bpf-Add-config-to-allow-loading-modules-with-BTF-mismatch.patch
+## dae
+#rm -rf ./feeds/packages/net/daed
+#mv -f ../Immortalwrt_PKG/net/dae          ./feeds/packages/net/dae
+#ln -sf ../../../feeds/packages/net/dae    ./package/feeds/packages/dae
+#mv -f ../Luci_daednext/daed-next          ./package/new/daed-next
+#mv -f ../Luci_daednext/luci-app-daed-next ./package/new/luci-app-daed-next
+#git clone --single-branch -b master --depth 1 https://github.com/QiuSimons/luci-app-daed.git package/new/luci-app-daed
+## allow BTF mismatch
+#wget -qO - https://github.com/immortalwrt/immortalwrt/commit/73e56799fe86dce851c6cf07a768e81597e204d9.patch | patch -p1
+#wget -P ./target/linux/generic/backport-5.15/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-23.05/target/linux/generic/backport-5.15/051-v5.18-bpf-Add-config-to-allow-loading-modules-with-BTF-mismatch.patch
 # cgroup v2
 pushd feeds/packages
   patch -p1 < ../../../PATCH/cgroupfs-mount/0001-fix-cgroupfs-mount.patch
