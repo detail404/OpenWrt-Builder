@@ -29,7 +29,7 @@ ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问�
 * Python3 解释型语言支持。
 * Git 版本控制工具。
 * `curl` 和 `wget` 两大常用工具。
-* 由 openssh-sftp-server 提供 SFTP 协议文件传输功能。由 lrzsz 提供终端内小文件传输功能。由 openssh-keygen 提供 SSH 密钥对生成。
+* 由 openssh-sftp-server 提供 SFTP 协议文件传输功能。由 openssh-keygen 提供 SSH 密钥对生成。
 * 常用命令行工具：bc、file、htop、lsof、nohup、pv、timeout、tree、xxd、split。
 * 文本编辑器：nano、vim。其中 vim 已添加一个[简单的配置文件](./PRECONFS/vimrc)。
 * 终端复用工具：screen、tmux。其中 screen 已添加一个[简单的配置文件](./PRECONFS/screenrc)。
