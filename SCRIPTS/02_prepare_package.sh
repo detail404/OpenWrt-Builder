@@ -120,7 +120,6 @@ pushd feeds/luci
 popd
 # FullCone package
 git clone --depth 1 https://github.com/fullcone-nat-nftables/nft-fullcone.git package/new/nft-fullcone
-mv -f ../Lienol_MSTR/package/network/utils/fullconenat/                     ./package/new/fullconenat/
 
 ### 4. 软件包 ###
 pushd feeds/packages
