@@ -133,6 +133,8 @@ mv -f ../PATCH/cgroupfs-mount/902-mount-sys-fs-cgroup-systemd-for-docker-systemd
 # UPnP
 rm -rf ./feeds/packages/net/miniupnpd
 mv -f ../Openwrt_PKG_MSTR/net/miniupnpd/ ./feeds/packages/net/miniupnpd/
+# luci-app-irqbalance
+mv -f ../OpenWrt-Add/luci-app-irqbalance/ ./package/new/luci-app-irqbalance/
 # CPU 控制相关
 mv -f ../Immortalwrt_PKG/utils/cpulimit/          ./feeds/packages/utils/cpulimit/
 mv -f ../Immortalwrt_Luci_2305/applications/luci-app-cpulimit/ ./package/new/luci-app-cpulimit/
