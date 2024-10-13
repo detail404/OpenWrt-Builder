@@ -36,17 +36,12 @@ mv -f ../Immortalwrt_2305/package/kernel/r8152/ ./package/new/r8152/
 git clone --depth 1 https://github.com/sbwml/package_kernel_r8125 package/new/r8125
 # R8168 网卡驱动 (务必放到 package/new/r8168 目录，否则后续 Patch 会出错)
 git clone --depth 1 https://github.com/BROBIRD/openwrt-r8168.git  package/new/r8168
-# UPX
-sed -i '/patchelf pkgconf/i\tools-y += ucl upx'                                  ./tools/Makefile
-sed -i '\/autoconf\/compile :=/i\$(curdir)/upx/compile := $(curdir)/ucl/compile' ./tools/Makefile
-mv -f ../Lienol_MSTR/tools/ucl/ ./tools/ucl/
-mv -f ../Lienol_MSTR/tools/upx/ ./tools/upx/
 # 更换 golang 版本
 rm -rf ./feeds/packages/lang/golang
-mv ../Openwrt_PKG_MSTR/lang/golang/ ./feeds/packages/lang/golang/
+mv -f ../Openwrt_PKG_MSTR/lang/golang/ ./feeds/packages/lang/golang/
 # Node.js 使用预编译二进制
-rm -rf ./feeds/packages/lang/node
-git clone --depth 1 https://github.com/sbwml/feeds_packages_lang_node-prebuilt.git feeds/packages/lang/node
+rm -rf ./feeds/packages/lang/node ./package/new/feeds_packages_lang_node-prebuilt
+mv -f ../OpenWrt-Add/feeds_packages_lang_node-prebuilt/ ./feeds/packages/lang/node/
 # hotplug 配置
 mkdir -p                                                 files/etc/hotplug.d/net
 mv ../PATCH/hotplug_conf/01-maximize_nic_rx_tx_buffers ./files/etc/hotplug.d/net/
@@ -117,14 +112,6 @@ cp -f ../PATCH/firewall/nftables/*.patch ./package/network/utils/nftables/patche
 sed -i '/PKG_INSTALL:=/iPKG_FIXUP:=autoreconf'                                      ./package/libs/libnftnl/Makefile
 # custom nft command
 patch -p1 < ../PATCH/firewall/100-openwrt-firewall4-add-custom-nft-command-support.patch
-# FW3
-mkdir -p package/network/config/firewall/patches
-wget -P ./package/network/config/firewall/patches/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/package/network/config/firewall/patches/100-fullconenat.patch
-mv -f ../Coolsnowwolf_MSTR/package/network/config/firewall/patches/101-bcm-fullconenat.patch ./package/network/config/firewall/patches/
-# iptables
-mv -f ../Coolsnowwolf_MSTR/package/network/utils/iptables/patches/900-bcm-fullconenat.patch ./package/network/utils/iptables/patches/900-bcm-fullconenat.patch
-# network
-wget -qO - https://github.com/openwrt/openwrt/commit/bbf39d07fd43977f55a4b9ba9e384cdf8a0d2b50.patch | patch -p1
 pushd feeds/luci
   # Patch LuCI 以增添 FullCone 开关
   patch -p1 < ../../../PATCH/firewall/01-luci-app-firewall_add_nft-fullcone-bcm-fullcone_option.patch
@@ -136,17 +123,6 @@ git clone --depth 1 https://github.com/fullcone-nat-nftables/nft-fullcone.git pa
 mv -f ../Lienol_MSTR/package/network/utils/fullconenat/                     ./package/new/fullconenat/
 
 ### 4. 软件包 ###
-## dae
-#rm -rf ./feeds/packages/net/daed
-#mv -f ../Immortalwrt_PKG/net/dae          ./feeds/packages/net/dae
-#ln -sf ../../../feeds/packages/net/dae    ./package/feeds/packages/dae
-#mv -f ../Luci_daednext/daed-next          ./package/new/daed-next
-#mv -f ../Luci_daednext/luci-app-daed-next ./package/new/luci-app-daed-next
-#git clone --single-branch -b master --depth 1 https://github.com/QiuSimons/luci-app-daed.git package/new/luci-app-daed
-## allow BTF mismatch
-#wget -qO - https://github.com/immortalwrt/immortalwrt/commit/73e56799fe86dce851c6cf07a768e81597e204d9.patch | patch -p1
-#wget -P ./target/linux/generic/backport-5.15/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-23.05/target/linux/generic/backport-5.15/051-v5.18-bpf-Add-config-to-allow-loading-modules-with-BTF-mismatch.patch
-# cgroup v2
 pushd feeds/packages
   patch -p1 < ../../../PATCH/cgroupfs-mount/0001-fix-cgroupfs-mount.patch
 popd
@@ -280,14 +256,8 @@ rm -rf ./feeds/packages/net/zerotier
 mv -f ../Immortalwrt_PKG/net/zerotier/                         ./feeds/packages/net/zerotier/
 mv -f ../Immortalwrt_Luci_2305/applications/luci-app-zerotier/ ./feeds/luci/applications/luci-app-zerotier/
 ln -sf ../../../feeds/luci/applications/luci-app-zerotier ./package/feeds/luci/luci-app-zerotier
-# Argon 主题
-git clone --single-branch -b master --depth 1 https://github.com/jerrykuku/luci-theme-argon.git      package/new/luci-theme-argon
-git clone --single-branch -b master --depth 1 https://github.com/jerrykuku/luci-app-argon-config.git package/new/luci-app-argon-config
-# Edge 主题
-git clone --single-branch -b master --depth 1 https://github.com/kiddin9/luci-theme-edge.git         package/new/luci-theme-edge
 # 翻译及部分功能优化
 mv -f ../OpenWrt-Add/addition-trans-zh/                               ./package/new/addition-trans-zh/
-sed -i 's,iptables-mod-fullconenat,iptables-nft +kmod-nft-fullcone,g' ./package/new/addition-trans-zh/Makefile
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/default_conf/zzz-default-settings
   sed -i '/upnp/Id'        ../PATCH/default_conf/zzz-default-settings
