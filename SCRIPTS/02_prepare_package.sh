@@ -156,21 +156,6 @@ mkdir -p feeds/packages/utils/cgroupfs-mount/patches
 mv -f ../PATCH/cgroupfs-mount/900-mount-cgroup-v2-hierarchy-to-sys-fs-cgroup-cgroup2.patch   ./feeds/packages/utils/cgroupfs-mount/patches/
 mv -f ../PATCH/cgroupfs-mount/901-fix-cgroupfs-umount.patch                                  ./feeds/packages/utils/cgroupfs-mount/patches/
 mv -f ../PATCH/cgroupfs-mount/902-mount-sys-fs-cgroup-systemd-for-docker-systemd-suppo.patch ./feeds/packages/utils/cgroupfs-mount/patches/
-# AutoCore
-mv -f ../Immortalwrt_2305/package/emortal/autocore/                        ./package/new/autocore/
-sed -i 's/ "getTempInfo" / "getTempInfo", "getCPUBench", "getCPUUsage" /g' ./package/new/autocore/files/luci-mod-status-autocore.json
-mv -f ../OpenWrt-Add/autocore/files/x86/autocore ./package/new/autocore/files/autocore
-sed -i '/i386 i686 x86_64/{n;n;n;d;}'             ./package/new/autocore/Makefile
-sed -i '/i386 i686 x86_64/d'                      ./package/new/autocore/Makefile
-rm -rf ./feeds/luci/modules/luci-base
-mv -f ../Immortalwrt_Luci_2305/modules/luci-base/ ./feeds/luci/modules/luci-base/
-sed -i 's,(br-lan),,g'                            ./feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
-rm -rf ./feeds/luci/modules/luci-mod-status
-mv -f ../Immortalwrt_Luci_2305/modules/luci-mod-status/ ./feeds/luci/modules/luci-mod-status/
-# coremark
-rm -rf ./feeds/packages/utils/coremark
-mv -f ../Immortalwrt_PKG/utils/coremark/     ./feeds/packages/utils/coremark/
-mv -f ../Immortalwrt_2305/package/utils/mhz/ ./package/utils/mhz/
 # UPnP
 rm -rf ./feeds/packages/net/miniupnpd
 mv -f ../Openwrt_PKG_MSTR/net/miniupnpd/ ./feeds/packages/net/miniupnpd/
