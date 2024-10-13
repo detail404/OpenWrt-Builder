@@ -130,7 +130,7 @@ mv -f ../PATCH/cgroupfs-mount/900-mount-cgroup-v2-hierarchy-to-sys-fs-cgroup-cgr
 mv -f ../PATCH/cgroupfs-mount/901-fix-cgroupfs-umount.patch                                  ./feeds/packages/utils/cgroupfs-mount/patches/
 mv -f ../PATCH/cgroupfs-mount/902-mount-sys-fs-cgroup-systemd-for-docker-systemd-suppo.patch ./feeds/packages/utils/cgroupfs-mount/patches/
 # AutoCore
-mv -f ../OpenWrt-Add/openwrt_pkgs/autocore-arm/ ./package/new/autocore-arm/
+mv -f ../OpenWrt-Add/autocore-arm/ ./package/new/autocore-arm/
 # coremark
 rm -rf ./feeds/packages/utils/coremark
 mv -f ../OpenWrt-Add/openwrt_pkgs/coremark/ ./feeds/packages/utils/coremark/
