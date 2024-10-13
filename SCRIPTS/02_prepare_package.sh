@@ -36,8 +36,6 @@ mv -f ../Immortalwrt_2305/package/kernel/r8152/ ./package/new/r8152/
 git clone --depth 1 https://github.com/sbwml/package_kernel_r8125 package/new/r8125
 # R8168 网卡驱动 (务必放到 package/new/r8168 目录，否则后续 Patch 会出错)
 git clone --depth 1 https://github.com/BROBIRD/openwrt-r8168.git  package/new/r8168
-# 默认开启 irqbalance
-sed -i "s/option enabled '0'/option enabled '1'/g" ./feeds/packages/utils/irqbalance/files/irqbalance.config
 # UPX
 sed -i '/patchelf pkgconf/i\tools-y += ucl upx'                                  ./tools/Makefile
 sed -i '\/autoconf\/compile :=/i\$(curdir)/upx/compile := $(curdir)/ucl/compile' ./tools/Makefile
@@ -159,8 +157,6 @@ mv -f ../PATCH/cgroupfs-mount/902-mount-sys-fs-cgroup-systemd-for-docker-systemd
 # UPnP
 rm -rf ./feeds/packages/net/miniupnpd
 mv -f ../Openwrt_PKG_MSTR/net/miniupnpd/ ./feeds/packages/net/miniupnpd/
-# luci-app-irqbalance
-mv -f ../OpenWrt-Add/luci-app-irqbalance/ ./package/new/luci-app-irqbalance/
 # CPU 控制相关
 mv -f ../Immortalwrt_PKG/utils/cpulimit/          ./feeds/packages/utils/cpulimit/
 mv -f ../Immortalwrt_Luci_2305/applications/luci-app-cpulimit/ ./package/new/luci-app-cpulimit/
