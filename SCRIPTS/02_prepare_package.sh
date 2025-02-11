@@ -79,7 +79,6 @@ if [ "${MYOPENWRTTARGET}" == 'R2S' ] ; then
   rm -rf ./target/linux/rockchip
   mv -f ../Immortalwrt_2410/target/linux/rockchip ./target/linux/rockchip
   mv -f ../PATCH/kernel/Rockchip/*                ./target/linux/rockchip/patches-6.6/
-  wget -P ./target/linux/rockchip/patches-6.6/ https://github.com/immortalwrt/immortalwrt/raw/refs/tags/v23.05.4/target/linux/rockchip/patches-5.15/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
   rm -rf ./package/boot/{rkbin,uboot-rockchip,arm-trusted-firmware-rockchip}
   mv -f ../Immortalwrt_2410/package/boot/uboot-rockchip                ./package/boot/uboot-rockchip
   mv -f ../Immortalwrt_2410/package/boot/arm-trusted-firmware-rockchip ./package/boot/arm-trusted-firmware-rockchip
