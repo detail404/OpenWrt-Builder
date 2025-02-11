@@ -17,9 +17,9 @@ mkdir -p package/new
 
 ### 2. 补丁 ###
 # BBR v3
-mv -f ../PATCH/BBRv3/kernel/*.patch ./target/linux/generic/backport-5.15/
+mv -f ../PATCH/BBRv3/kernel/*.patch ./target/linux/generic/backport-6.6/
 # # LRNG
-# mv -f ../PATCH/LRNG/*.patch       ./target/linux/generic/hack-5.15/
+# mv -f ../PATCH/LRNG/*.patch       ./target/linux/generic/hack-6.6/
 # echo '
 # # CONFIG_RANDOM_DEFAULT_IMPL is not set
 # CONFIG_LRNG=y
