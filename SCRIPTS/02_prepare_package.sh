@@ -31,6 +31,8 @@ mv -f ../PATCH/BBRv3/*.patch ./target/linux/generic/backport-6.6/
 # CONFIG_LRNG_SELFTEST=y
 # # CONFIG_LRNG_SELFTEST_PANIC is not set
 # ' >>./target/linux/generic/config-6.6
+# WireGuard
+mv -f ../PATCH/WireGuard/*.patch  ./target/linux/generic/hack-6.6/
 # fstool patch
 wget -qO - https://github.com/coolsnowwolf/lede/commit/8a4db762497b79cac91df5e777089448a2a71f7c.patch | patch -p1
 # R8152 网卡驱动
