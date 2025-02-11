@@ -17,17 +17,20 @@ mkdir -p package/new
 
 ### 2. 补丁 ###
 # BBR v3
-mv -f ../PATCH/BBRv3/kernel/*.patch ./target/linux/generic/backport-6.6/
+mv -f ../PATCH/BBRv3/*.patch ./target/linux/generic/backport-6.6/
 # # LRNG
-# mv -f ../PATCH/LRNG/*.patch       ./target/linux/generic/hack-6.6/
+# mv -f ../PATCH/LRNG/*.patch  ./target/linux/generic/hack-6.6/
 # echo '
 # # CONFIG_RANDOM_DEFAULT_IMPL is not set
 # CONFIG_LRNG=y
+# CONFIG_LRNG_DEV_IF=y
 # # CONFIG_LRNG_IRQ is not set
 # CONFIG_LRNG_JENT=y
 # CONFIG_LRNG_CPU=y
 # # CONFIG_LRNG_SCHED is not set
-# ' >> ./target/linux/generic/config-5.15
+# CONFIG_LRNG_SELFTEST=y
+# # CONFIG_LRNG_SELFTEST_PANIC is not set
+# ' >>./target/linux/generic/config-6.6
 # fstool patch
 wget -qO - https://github.com/coolsnowwolf/lede/commit/8a4db762497b79cac91df5e777089448a2a71f7c.patch | patch -p1
 # R8152 网卡驱动
