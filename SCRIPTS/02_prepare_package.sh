@@ -85,6 +85,12 @@ if [ "${MYOPENWRTTARGET}" == 'R2S' ] ; then
   sed -i '/REQUIRE_IMAGE_METADATA/d' ./target/linux/rockchip/armv8/base-files/lib/upgrade/platform.sh
 fi
 
+# 更换 golang 版本
+rm -rf ./feeds/packages/lang/golang
+mv -f ../Openwrt_PKG_Master/lang/golang/ ./feeds/packages/lang/golang/
+# Node.js 使用预编译二进制
+rm -rf ./feeds/packages/lang/node ./package/new/feeds_packages_lang_node-prebuilt
+mv -f ../OpenWrt-Add/feeds_packages_lang_node-prebuilt/ ./feeds/packages/lang/node/
 ### ADD PKG 部分 ###
 cp -rf ../OpenWrt-Add ./package/new
 rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box,frp,microsocks,shadowsocks-libev,zerotier,daed}
@@ -92,12 +98,6 @@ rm -rf feeds/luci/applications/{luci-app-frps,luci-app-frpc,luci-app-zerotier,lu
 rm -rf feeds/packages/utils/coremark
 
 ### 获取额外的 LuCI 应用、主题和依赖 ###
-# Node.js 使用预编译二进制
-rm -rf ./feeds/packages/lang/node ./package/new/feeds_packages_lang_node-prebuilt
-mv -f ../OpenWrt-Add/feeds_packages_lang_node-prebuilt/ ./feeds/packages/lang/node/
-# 更换 golang 版本
-rm -rf ./feeds/packages/lang/golang
-mv -f ../Openwrt_PKG_Master/lang/golang/ ./feeds/packages/lang/golang/
 # mount cgroupv2
 pushd feeds/packages
   patch -p1 < ../../../PATCH/pkgs/cgroupfs-mount/0001-fix-cgroupfs-mount.patch
@@ -188,6 +188,7 @@ mv -f ../PRECONFS/vimrc    ./package/base-files/files/root/.vimrc
 mv -f ../PRECONFS/screenrc ./package/base-files/files/root/.screenrc
 
 # 删除多余的代码库
+rm -rf ../Openwrt_Main/ ../Openwrt_PKG_Master/ ../Immortalwrt_2410/ ../Openwrt_Main/ 
 
 unalias wget
 sync

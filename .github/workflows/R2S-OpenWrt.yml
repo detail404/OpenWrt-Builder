@@ -135,6 +135,7 @@ jobs:
       if: steps.compileopenwrt.outcome == 'failure'
       working-directory: ${{ github.workspace }}/openwrt
       run: |
+        find -type f -name '*.rej' -print0 | xargs -0 -s 1000 cat
         df -h
         cat .config
         echo '================================================================'
