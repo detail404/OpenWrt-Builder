@@ -21,7 +21,6 @@ jobs:
         uname -a
         [ -f /proc/version ] && cat /proc/version
         [ -f /etc/issue.net ] && cat /etc/issue.net
-
     - name: Free disk space
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -33,7 +32,6 @@ jobs:
         sudo -E apt-get -qq -y autoremove --purge
         sudo -E rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /etc/mysql /etc/php
         df -h
-
     - name: Init build dependencies
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -45,7 +43,6 @@ jobs:
         pip3 install --user -U pylibfdt
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -h
-
     - name: Maximize build space
       uses: easimon/maximize-build-space@master
       with:
@@ -69,42 +66,35 @@ jobs:
         cp -f ./SCRIPTS/01_get_ready.sh ./01_get_ready.sh
         echo "FMDATETIME=$(date '+%Y%m%d-%H%M')" >> $GITHUB_ENV
         /bin/bash ./01_get_ready.sh
-
     - name: Prepare Package
       working-directory: ${{ github.workspace }}/openwrt
       run: |
         cp -f ../SCRIPTS/*.sh ./
         /bin/bash ./02_prepare_package.sh
-
     - name: Remove Upx
       working-directory: ${{ github.workspace }}/openwrt
       run: |
         /bin/bash ./03_remove_upx.sh
-
     - name: Convert Translation
       working-directory: ${{ github.workspace }}/openwrt
       run: |
         /bin/bash ./04_convert_translation.sh
-
     - name: Add ACL
       working-directory: ${{ github.workspace }}/openwrt
       run: |
         /bin/bash ./05_create_acl_for_luci.sh -a
-
     - name: Make Config
       working-directory: ${{ github.workspace }}/openwrt
       run: |
         cp -f ../SEED/R2S.config.seed .config
         cat   ../SEED/more.seed    >> .config
         make defconfig
-
     - name: Make Download
       working-directory: ${{ github.workspace }}/openwrt
       run: |
         df -h
         make download -j$(($(nproc) * 8))
         echo $?
-
     - name: Make Toolchain
       id: maketoolchain
       continue-on-error: true
@@ -114,14 +104,12 @@ jobs:
         make toolchain/install -j$(($(nproc) + 1))
         echo $?
         /bin/ls -AF staging_dir/toolchain-*/bin/
-
     - name: If Toolchain Error
       if: steps.maketoolchain.outcome == 'failure'
       working-directory: ${{ github.workspace }}/openwrt
       run: |
         df -h
         make toolchain/install -j1 V=s
-
     - name: Compile OpenWrt
       id: compileopenwrt
       continue-on-error: true
@@ -131,7 +119,6 @@ jobs:
         make -j$(($(nproc) + 1)) package/network/utils/nftables/refresh V=s
         make -j$(($(nproc) + 1)) V=w
         echo $?
-
     - name: If Compiling Error
       if: steps.compileopenwrt.outcome == 'failure'
       working-directory: ${{ github.workspace }}/openwrt
@@ -140,7 +127,6 @@ jobs:
         cat .config
         echo '================================================================'
         make -j1 V=s
-
     - name: Cleaning and hashing
       run: |
         rm -rf ./artifact && mkdir -p ./artifact
@@ -155,7 +141,6 @@ jobs:
         /bin/bash ../../../../../SCRIPTS/06_cleaning.sh
         mv -f ./* ../../../../../artifact/
         echo "status=success" >> $GITHUB_OUTPUT
-
     - name: Upload Firmwares
       uses: actions/upload-artifact@v4
       if: env.UPLOAD_FIRMWARE == 'true' && ${{ success() }}
